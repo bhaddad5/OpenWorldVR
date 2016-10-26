@@ -7,6 +7,7 @@ public class HandController : MonoBehaviour
 	public MovementController movementController;
 	public GameObject movementTracker;
 	public GameObject CameraRig;
+	public GameObject CurrentlyHeldObject;
 
 	private SteamVR_Controller.Device input;
 	private bool moving = false;
@@ -50,6 +51,7 @@ public class HandController : MonoBehaviour
 		{
 			movementController.NewMove();
 			moving = true;
+			movementTracker.SetActive(true);
 		}
 
 		if (input.GetPressUp(EVRButtonId.k_EButton_SteamVR_Touchpad) && moving)
@@ -57,7 +59,8 @@ public class HandController : MonoBehaviour
 			Vector3 cameraOffset = new Vector3(Camera.main.transform.localPosition.x, 0, Camera.main.transform.localPosition.z);
 			CameraRig.transform.position = movementTracker.transform.position - cameraOffset;
 			moving = false;
-			distMoved = 0f;
+			distMoved = 1f;
+			movementTracker.SetActive(false);
 		}
 	}
 
@@ -66,7 +69,16 @@ public class HandController : MonoBehaviour
 		if (moving)
 		{
 			moving = false;
-			distMoved = 0f;
+			distMoved = 1f;
+			movementTracker.SetActive(false);
+		}
+	}
+
+	public void CheckWandAndExecuteSpell(VoiceDetector.VoiceActions action)
+	{
+		if (CurrentlyHeldObject != null && CurrentlyHeldObject.GetComponent<WandController>() != null)
+		{
+			CurrentlyHeldObject.GetComponent<WandController>().ExecuteSpell(action);
 		}
 	}
 }
