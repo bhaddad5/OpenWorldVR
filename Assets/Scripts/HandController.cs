@@ -6,21 +6,15 @@ public class HandController : MonoBehaviour
 {
 	public MovementController movementController;
 	public GameObject movementTracker;
-	public GameObject CameraRig;
 	public GameObject CurrentlyHeldObject;
 
 	private SteamVR_Controller.Device input;
 	private bool moving = false;
 	private float moveSpeed = 0.2f;
 	private float maxMoveDist = 20.0f;
-	private float maxVerticalJump = 10f;
-	private float distMoved = 0f;
+	private float maxVerticalJump = 2f;
+	private float distMoved = 1f;
 	private Vector3 theoreticalMovePos;
-
-	// Use this for initialization
-	void Start () {
-		CameraRig = GameObject.Find("[CameraRig]");
-	}
 	
 	// Update is called once per frame
 	void FixedUpdate ()
@@ -32,7 +26,7 @@ public class HandController : MonoBehaviour
 			theoreticalMovePos = Camera.main.transform.position + (controllerForward * distMoved);
 
 			RaycastHit hit;
-			if(Physics.Raycast(new Ray(theoreticalMovePos + new Vector3(0, maxVerticalJump, 0), Vector3.down), out hit, 1000f, 1 << 8))
+			if(Physics.Raycast(new Ray(theoreticalMovePos, Vector3.down), out hit, 1000f, 1 << 8))
 			{
 				movementTracker.transform.position = hit.point;
 			}
@@ -57,7 +51,7 @@ public class HandController : MonoBehaviour
 		if (input.GetPressUp(EVRButtonId.k_EButton_SteamVR_Touchpad) && moving)
 		{
 			Vector3 cameraOffset = new Vector3(Camera.main.transform.localPosition.x, 0, Camera.main.transform.localPosition.z);
-			CameraRig.transform.position = movementTracker.transform.position - cameraOffset;
+			Singletons.CameraRig().transform.position = movementTracker.transform.position - cameraOffset;
 			moving = false;
 			distMoved = 1f;
 			movementTracker.SetActive(false);

@@ -18,8 +18,8 @@ public class VoiceDetector : MonoBehaviour
 
 	// Use this for initialization
 	void Start () {
-		AddVoiceKeyword(VoiceActions.Fireball, new[] {"ignis", "ignus" });
-		AddVoiceKeyword(VoiceActions.SpellShield, new []{"hadrus", "haedrus"});
+		AddVoiceKeyword(VoiceActions.Fireball, new[] {"fire ball", "fireball" });
+		AddVoiceKeyword(VoiceActions.SpellShield, new []{"mana shield", "manashield"});
 
 		keywordRecognizer = new KeywordRecognizer(keywords.Keys.ToArray());
 		keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
