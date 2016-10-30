@@ -4,7 +4,7 @@ using System.Collections;
 public class FireballController : DamageDealer
 {
 	private Vector3 movementDirection;
-	private float movementSpeed = 0.4f;
+	private float movementSpeed = 0.3f;
 	private float createdTime;
 	private float lifespan = 10f;
 
