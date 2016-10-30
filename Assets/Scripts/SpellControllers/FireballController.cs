@@ -28,16 +28,20 @@ public class FireballController : DamageDealer
 		movementDirection = dir;
 	}
 
-	protected override void HandleBlocked(StrikeBlocker blocker)
+	protected override bool HandleBlocked(StrikeBlocker blocker)
 	{
 		base.HandleBlocked(blocker);
 		Destroy(gameObject);
+		return true;
 	}
 
-	protected override int HandleHit(DamageTaker damageTaker)
+	protected override bool HandleHit(DamageTaker damageTaker)
 	{
+		base.HandleHit(damageTaker);
+
 		damageTaker.TakeDamage(damage);
 		Destroy(gameObject);
-		return base.HandleHit(damageTaker);
+
+		return true;
 	}
 }

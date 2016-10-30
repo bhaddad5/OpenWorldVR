@@ -3,10 +3,9 @@ using System.Collections;
 
 public class WeaponController : DamageDealer
 {
-	private float minStrikeDistance = 0.1f;
-	private float minStrikeSpeed = 0.03f;
+	private float minStrikeDistance = 0.3f;
+	private float minStrikeSpeed = 0.04f;
 
-	private float currStrikeDistance = 0f;
 	private Transform strikeTracker;
 	private Vector3 prevStrikeTrackerPos;
 	private Vector3 trackerPosAtStartOfStrike;
@@ -28,16 +27,24 @@ public class WeaponController : DamageDealer
 		{
 			if (!strikeBegun)
 			{
+				Debug.Log("reset trackerPos");
 				trackerPosAtStartOfStrike = strikeTracker.position;
 			}
 			strikeBegun = true;
 		}
-		else strikeBegun = false;
+		else
+		{
+			strikeBegun = false;
+		}
 
 		float totalStrikeDist = Vector3.Magnitude(strikeTracker.position - trackerPosAtStartOfStrike);
 		if (strikeBegun && totalStrikeDist >= minStrikeDistance)
 		{
-			strikeValid = true;
+			if (!strikeValid)
+			{
+				strikeValid = true;
+				Debug.Log(totalStrikeDist);
+			}
 		}
 		else strikeValid = false;
 
@@ -45,20 +52,28 @@ public class WeaponController : DamageDealer
 		prevStrikeTrackerPos = strikeTracker.position;
 	}
 
-	protected override void HandleBlocked(StrikeBlocker blocker)
+	protected override bool HandleBlocked(StrikeBlocker blocker)
 	{
 		base.HandleBlocked(blocker);
+		bool strikeValidAtStart = strikeValid;
+		
 		strikeValid = false;
 		strikeBegun = false;
+
+		if (strikeValidAtStart)
+			return true;
+		else return false;
 	}
 
-	protected override int HandleHit(DamageTaker damageTaker)
+	protected override bool HandleHit(DamageTaker damageTaker)
 	{
+		base.HandleHit(damageTaker);
+
 		if (strikeValid)
 		{
 			damageTaker.TakeDamage(damage);
+			return true;
 		}
-
-		return base.HandleHit(damageTaker);
+		else return false;
 	}
 }

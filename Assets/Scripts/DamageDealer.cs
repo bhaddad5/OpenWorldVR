@@ -26,22 +26,26 @@ public class DamageDealer : MonoBehaviour
 		StrikeBlocker blocked = collider.gameObject.GetComponent<StrikeBlocker>();
 		if (blocked != null)
 		{
-			text.text = "Blocked";
-			HandleBlocked(blocked);
+			if (HandleBlocked(blocked))
+			{
+				text.text = "Blocked";
+			}
+			else Destroy(text);
+
 		}
 
 		DamageTaker objectHit = collider.gameObject.GetComponent<DamageTaker>();
 		if (objectHit != null)
 		{
-			int damage = HandleHit(objectHit);
-			text.text = "HIT -" + damage;
+			if (HandleHit(objectHit))
+			{
+				text.text = "HIT -" + damage;
+			}
+			else Destroy(text);
 		}
 	}
 
-	protected virtual void HandleBlocked(StrikeBlocker blocker)	{}
+	protected virtual bool HandleBlocked(StrikeBlocker blocker)	{ return false; }
 
-	protected virtual int HandleHit(DamageTaker damageTaker)
-	{
-		return damage;
-	}
+	protected virtual bool HandleHit(DamageTaker damageTaker) { return false; }
 }

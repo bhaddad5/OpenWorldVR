@@ -67,14 +67,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\BodyController.cs" />
+    <Compile Include="Assets\Scripts\DamageDealer.cs" />
+    <Compile Include="Assets\Scripts\DamageHandler.cs" />
+    <Compile Include="Assets\Scripts\DamageTaker.cs" />
     <Compile Include="Assets\Scripts\EnemyMovementController.cs" />
+    <Compile Include="Assets\Scripts\GlobalPrefabs.cs" />
     <Compile Include="Assets\Scripts\HandController.cs" />
+    <Compile Include="Assets\Scripts\HitTextController.cs" />
     <Compile Include="Assets\Scripts\MovementController.cs" />
     <Compile Include="Assets\Scripts\SpellControllers\FireballController.cs" />
     <Compile Include="Assets\Scripts\SpellControllers\SpellShieldController.cs" />
     <Compile Include="Assets\Scripts\SpellExecutor.cs" />
+    <Compile Include="Assets\Scripts\StaticHelpers\Helpers.cs" />
+    <Compile Include="Assets\Scripts\StaticHelpers\Singletons.cs" />
+    <Compile Include="Assets\Scripts\StrikeBlocker.cs" />
     <Compile Include="Assets\Scripts\VoiceDetector.cs" />
     <Compile Include="Assets\Scripts\WandController.cs" />
+    <Compile Include="Assets\Scripts\WeaponController.cs" />
     <Compile Include="Assets\SteamVR\Extras\SteamVR_GazeTracker.cs" />
     <Compile Include="Assets\SteamVR\Extras\SteamVR_LaserPointer.cs" />
     <Compile Include="Assets\SteamVR\Extras\SteamVR_Teleporter.cs" />
