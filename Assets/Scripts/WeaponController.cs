@@ -27,7 +27,6 @@ public class WeaponController : DamageDealer
 		{
 			if (!strikeBegun)
 			{
-				Debug.Log("reset trackerPos");
 				trackerPosAtStartOfStrike = strikeTracker.position;
 			}
 			strikeBegun = true;
