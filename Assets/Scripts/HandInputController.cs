@@ -27,10 +27,14 @@ public class HandInputController : MonoBehaviour
 			UpdateCurrentMovePoint();
 		}
 
-		if (input.GetPressUp(EVRButtonId.k_EButton_SteamVR_Touchpad) && currentlyMovingPlayer)
+		if (input.GetPressUp(EVRButtonId.k_EButton_SteamVR_Touchpad))
 		{
-			Singletons.PlayerMovementController().ExecuteMove();
-			currentlyMovingPlayer = false;
+			if (currentlyMovingPlayer)
+			{
+				Singletons.PlayerMovementController().ExecuteMove();
+				currentlyMovingPlayer = false;
+			}
+			Singletons.PlayerMovementController().EndMovement();
 		}
 	}
 

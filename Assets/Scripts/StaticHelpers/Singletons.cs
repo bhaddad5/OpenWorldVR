@@ -55,8 +55,8 @@ public static class Singletons
 
 	public static HandInputController RightHand()
 	{
-		if (leftHand == null)
-			leftHand = CameraRig().FindChild("Controller (right)").GetComponent<HandInputController>();
-		return leftHand;
+		if (rightHand == null)
+			rightHand = CameraRig().FindChild("Controller (right)").GetComponent<HandInputController>();
+		return rightHand;
 	}
 }

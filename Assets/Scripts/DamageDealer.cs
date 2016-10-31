@@ -38,9 +38,15 @@ public class DamageDealer : MonoBehaviour
 
 			leastDamagedObjectHit.RecieveHit(damage);
 			lastHitTime = Time.time;
+
+			if (destroyedOnHit)
+			{
+				Destroy(gameObject);
+			}
 		}
 		alreadyHit.Clear();
-		prevStrikeTrackerPos = strikeTracker.position;
+		if(usesSpeedCutoff)
+			prevStrikeTrackerPos = strikeTracker.position;
 	}
 
 	void OnTriggerEnter(Collider collider)
@@ -58,10 +64,6 @@ public class DamageDealer : MonoBehaviour
 		if (objectHit != null && hitValid)
 		{
 			alreadyHit.Add(objectHit);
-			if (destroyedOnHit)
-			{
-				Destroy(gameObject);
-			}
 		}
 	}
 }

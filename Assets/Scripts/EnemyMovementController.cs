@@ -5,7 +5,7 @@ public class EnemyMovementController : MonoBehaviour
 {
 	private float EnemyMoveSpeed = 0.03f;
 	private float EnemyPlayerDetectionRange = 15.0f;
-	private float EnemyMinDistance = 1.0f;
+	private float EnemyMinDistance = 2.0f;
 	private Vector3 heightOffset;
 	private bool PlayerDetected = false;
 	private bool MovingToPlayer = false;

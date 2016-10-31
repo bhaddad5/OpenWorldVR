@@ -57,6 +57,10 @@ public class PlayerMovementController : MonoBehaviour
 			Vector3 cameraOffset = new Vector3(Camera.main.transform.localPosition.x, 0, Camera.main.transform.localPosition.z);
 			Singletons.CameraRig().transform.position = currentActualMovePoint - cameraOffset;
 		}
+	}
+
+	public void EndMovement()
+	{
 		projectingMovement = false;
 		distCanMove = baseMoveDist;
 		MovementTracker.SetActive(false);
