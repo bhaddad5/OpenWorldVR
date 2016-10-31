@@ -13,4 +13,9 @@ public static class Helpers {
 			return null;
 		else return GetComponentInAllParents<T>(obj.transform.parent.gameObject);
 	}
+
+	public static Vector3 VectorTo(this Vector3 from, Vector3 to)
+	{
+		return to - from;
+	}
 }

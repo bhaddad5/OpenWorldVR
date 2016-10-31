@@ -28,7 +28,7 @@ public static class Singletons
 	public static PlayerMovementController PlayerMovementController()
 	{
 		if (playerMovementController == null)
-			playerMovementController = GameObject.Find("PlayerMovementController").GetComponent<PlayerMovementController>();
+			playerMovementController = CameraRig().FindChild("Camera (eye)").FindChild("PlayerBody").GetComponent<PlayerMovementController>();
 		return playerMovementController;
 	}
 

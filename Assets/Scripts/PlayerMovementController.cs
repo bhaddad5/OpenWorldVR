@@ -24,8 +24,9 @@ public class PlayerMovementController : MonoBehaviour
 		if (projectingMovement && currentIntendedMovePoint.transform != null &&
 		    currentIntendedMovePoint.transform.GetComponent<WalkingSurface>() != null)
 		{
-			currentActualMovePoint = currentIntendedMovePoint.point;
-			MovementTracker.transform.position = currentActualMovePoint;
+			WalkingSurface hitSurface = currentIntendedMovePoint.transform.GetComponent<WalkingSurface>();
+			MovementTracker.transform.position = currentIntendedMovePoint.point;
+			currentActualMovePoint = hitSurface.GetMovePos(currentIntendedMovePoint.point, transform.position);
 			lookingAtValidPoint = true;
 			MovementTracker.SetActive(true);
 		}

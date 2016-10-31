@@ -3,13 +3,8 @@ using System.Collections;
 
 public class WalkingSurface : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+	public virtual Vector3 GetMovePos(Vector3 directedMovePos, Vector3 currentPlayerPos)
+	{
+		return directedMovePos;
 	}
 }
