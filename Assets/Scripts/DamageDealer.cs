@@ -1,51 +1,67 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class DamageDealer : MonoBehaviour
 {
 	public int damage;
-	private bool alreadyHit = false;
+	public bool destroyedOnHit;
+	public bool usesSpeedCutoff;
+
+	private float minSpeedOnImpact = 0.04f;
+	private float cooldownAfterHit = 1.0f;
+	private float lastHitTime;
+	private Transform strikeTracker;
+	private Vector3 prevStrikeTrackerPos;
+	private List<DamageReciever> alreadyHit = new List<DamageReciever>();
+
+	void Start()
+	{
+		if (usesSpeedCutoff)
+		{
+			strikeTracker = transform.FindChild("StrikeTracker");
+			prevStrikeTrackerPos = strikeTracker.position;
+		}
+	}
 
 	void Update()
 	{
-		alreadyHit = false;
+		if (alreadyHit.Count > 0 && Time.time > lastHitTime + cooldownAfterHit)
+		{
+			DamageReciever leastDamagedObjectHit = alreadyHit[0];
+			foreach (DamageReciever reciever in alreadyHit)
+			{
+				if (reciever.damageMultiplier < leastDamagedObjectHit.damageMultiplier)
+					leastDamagedObjectHit = reciever;
+			}
+
+			leastDamagedObjectHit.RecieveHit(damage);
+			lastHitTime = Time.time;
+		}
+		alreadyHit.Clear();
+		prevStrikeTrackerPos = strikeTracker.position;
 	}
 
 	void OnTriggerEnter(Collider collider)
 	{
-		if (alreadyHit)
-			return;
-		alreadyHit = true;
+		DamageReciever objectHit = collider.gameObject.GetComponent<DamageReciever>();
 
-		GameObject damageText = Instantiate(Singletons.GlobalPrefabs().DamageText);
-		damageText.transform.position = transform.position;
-		damageText.transform.LookAt(Camera.main.transform.position);
-		Text text = damageText.transform.GetChild(0).GetComponent<Text>();
-
-		StrikeBlocker blocked = collider.gameObject.GetComponent<StrikeBlocker>();
-		if (blocked != null)
+		bool hitValid = true;
+		if (usesSpeedCutoff)
 		{
-			if (HandleBlocked(blocked))
-			{
-				text.text = "Blocked";
-			}
-			else Destroy(text);
-
+			float currSpeed = Vector3.Magnitude(prevStrikeTrackerPos.VectorTo(strikeTracker.position));
+			if (currSpeed < minSpeedOnImpact)
+				hitValid = false;
 		}
 
-		DamageTaker objectHit = collider.gameObject.GetComponent<DamageTaker>();
-		if (objectHit != null)
+		if (objectHit != null && hitValid)
 		{
-			if (HandleHit(objectHit))
+			alreadyHit.Add(objectHit);
+			if (destroyedOnHit)
 			{
-				text.text = "HIT -" + damage;
+				Destroy(gameObject);
 			}
-			else Destroy(text);
 		}
 	}
-
-	protected virtual bool HandleBlocked(StrikeBlocker blocker)	{ return false; }
-
-	protected virtual bool HandleHit(DamageTaker damageTaker) { return false; }
 }

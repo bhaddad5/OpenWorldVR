@@ -37,7 +37,7 @@ public class PlayerMovementController : MonoBehaviour
 		}
 	}
 
-	public bool BeginMove()
+	public bool TryToBeginMove()
 	{
 		if (projectingMovement)
 			return false;

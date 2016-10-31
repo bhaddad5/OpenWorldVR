@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FireballController : DamageDealer
+public class FireballController : MonoBehaviour
 {
 	private Vector3 movementDirection;
 	private float movementSpeed = 0.3f;
@@ -26,22 +26,5 @@ public class FireballController : DamageDealer
 	public void SetMoveDir(Vector3 dir)
 	{
 		movementDirection = dir;
-	}
-
-	protected override bool HandleBlocked(StrikeBlocker blocker)
-	{
-		base.HandleBlocked(blocker);
-		Destroy(gameObject);
-		return true;
-	}
-
-	protected override bool HandleHit(DamageTaker damageTaker)
-	{
-		base.HandleHit(damageTaker);
-
-		damageTaker.TakeDamage(damage);
-		Destroy(gameObject);
-
-		return true;
 	}
 }

@@ -19,8 +19,7 @@ public class HandInputController : MonoBehaviour
 
 		if (input.GetPressDown(EVRButtonId.k_EButton_SteamVR_Touchpad))
 		{
-			currentlyMovingPlayer = Singletons.PlayerMovementController().BeginMove();
-			UpdateCurrentMovePoint();
+			currentlyMovingPlayer = Singletons.PlayerMovementController().TryToBeginMove();
 		}
 
 		if (currentlyMovingPlayer)
@@ -41,6 +40,4 @@ public class HandInputController : MonoBehaviour
 		Physics.Raycast(new Ray(transform.position, transform.forward), out hit, 100f, 1<<8);
 		Singletons.PlayerMovementController().UpdateMovePoint(hit);
 	}
-
-	
 }
