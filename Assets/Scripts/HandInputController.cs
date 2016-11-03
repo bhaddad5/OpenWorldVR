@@ -10,13 +10,28 @@ public class HandInputController : MonoBehaviour
 	// Update is called once per frame
 	void FixedUpdate ()
 	{
+		input = SteamVR_Controller.Input((int)GetComponentInParent<SteamVR_TrackedObject>().index);
+
+		GetClickInput();
 		GetMoveInput();
+	}
+
+	private void GetClickInput()
+	{
+		if (input.GetPressDown(EVRButtonId.k_EButton_SteamVR_Trigger))
+		{
+			GetComponent<HandStateContainer>().SetTriggerDown(true);
+
+			GetComponent<HandStateContainer>().TryAddItemToInventory();
+		}
+		if (input.GetPressUp(EVRButtonId.k_EButton_SteamVR_Trigger))
+		{
+			GetComponent<HandStateContainer>().SetTriggerDown(false);
+		}
 	}
 
 	private void GetMoveInput()
 	{
-		input = SteamVR_Controller.Input((int)GetComponentInParent<SteamVR_TrackedObject>().index);
-
 		if (input.GetPressDown(EVRButtonId.k_EButton_SteamVR_Touchpad))
 		{
 			currentlyMovingPlayer = Singletons.PlayerMovementController().TryToBeginMove();

@@ -10,6 +10,7 @@ public static class Singletons
 	private static SpellExecutor spellExecutor;
 	private static HandInputController leftHand;
 	private static HandInputController rightHand;
+	private static InventoryController inventoryController;
 
 	public static GlobalPrefabs GlobalPrefabs()
 	{
@@ -58,5 +59,12 @@ public static class Singletons
 		if (rightHand == null)
 			rightHand = CameraRig().FindChild("Controller (right)").GetComponent<HandInputController>();
 		return rightHand;
+	}
+
+	public static InventoryController InventoryController()
+	{
+		if (inventoryController == null)
+			inventoryController = CameraRig().FindChild("satchel").GetComponent<InventoryController>();
+		return inventoryController;
 	}
 }

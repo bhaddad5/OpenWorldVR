@@ -6,11 +6,11 @@ public class WandController : MonoBehaviour
 	public GameObject fireball;
 	public GameObject spellShield;
 
-	public void ExecuteSpell(VoiceDetector.VoiceActions action)
+	public void ExecuteSpell(VoiceDetector.SpellActions action)
 	{
-		if (action == VoiceDetector.VoiceActions.Fireball)
+		if (action == VoiceDetector.SpellActions.Fireball)
 			ExecuteFireball();
-		if (action == VoiceDetector.VoiceActions.SpellShield)
+		if (action == VoiceDetector.SpellActions.SpellShield)
 			ExecuteSpellShield();
 	}
 
