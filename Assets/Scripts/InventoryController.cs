@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 
 public class InventoryController : MonoBehaviour {
 
@@ -22,34 +23,24 @@ public class InventoryController : MonoBehaviour {
 		obj.gameObject.SetActive(false);
 		obj.gameObject.transform.SetParent(transform);
 		inventory.Add(obj);
-
-		Debug.Log("after insert " + inventory.ValuesToString());
+		obj.GetComponent<BoxCollider>().enabled = true;
 	}
 
-	public void GrabItem(HoldableObject obj)
+	public void TryGrabItem(HoldableObject obj)
 	{
-		if (currentHands.Count == 0)
-			return;
-
-		InsertItem(currentHands[0].CurrentlyHeldObject);
-		obj.transform.SetParent(currentHands[0].transform);
-		obj.gameObject.SetActive(true);
-		currentHands[0].CurrentlyHeldObject = obj;
-		obj.transform.localPosition = Vector3.zero;
-		obj.transform.localRotation = Quaternion.identity;
-		obj.transform.localScale = Vector3.one;
-		inventory.Remove(obj);
-		Debug.Log("after grab " + inventory.ValuesToString());
+		if (currentHands.Count != 0)
+			currentHands[0].PutItemInHand(obj);
 	}
 
 	public void SummonItemType(SummonableItems itemType)
 	{
-		Debug.Log("on summon " + inventory.ValuesToString());
+		Debug.Log("Summon " + inventory.ValuesToString());
 		foreach (HoldableObject holdableObject in inventory)
 		{
 			if (holdableObject.itemType == itemType)
 			{
-				GrabItem(holdableObject);
+				TryGrabItem(holdableObject);
+				inventory.Remove(holdableObject);
 				return;
 			}
 		}

@@ -65,7 +65,7 @@ public static class Singletons
 	public static InventoryController InventoryController()
 	{
 		if (inventoryController == null)
-			inventoryController = CameraRig().FindChild("satchel").GetComponent<InventoryController>();
+			inventoryController = CameraRig().FindChild("Inventory").FindChild("satchel").GetComponent<InventoryController>();
 		return inventoryController;
 	}
 

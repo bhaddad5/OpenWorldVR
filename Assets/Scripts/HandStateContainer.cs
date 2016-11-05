@@ -26,8 +26,27 @@ public class HandStateContainer : MonoBehaviour {
 					Singletons.PlayerStatsContainer().AddStats(coll.GetComponent<StatsLoot>());
 					Destroy(coll.gameObject);
 				}
+
+				if (coll.GetComponent<HoldableObject>() != null)
+				{
+					PutItemInHand(coll.GetComponent<HoldableObject>());
+				}
 			}
 		}
+	}
+
+	public void PutItemInHand(HoldableObject obj)
+	{
+		if (CurrentlyHeldObject != null)
+			return;
+
+		obj.transform.SetParent(transform);
+		obj.gameObject.SetActive(true);
+		CurrentlyHeldObject = obj;
+		obj.transform.localPosition = Vector3.zero;
+		obj.transform.localRotation = Quaternion.identity;
+		obj.transform.localScale = Vector3.one;
+		obj.GetComponent<BoxCollider>().enabled = false;
 	}
 
 	public void TryAddItemToInventory()
