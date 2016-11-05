@@ -31,6 +31,11 @@ public class HandStateContainer : MonoBehaviour {
 				{
 					PutItemInHand(coll.GetComponent<HoldableObject>());
 				}
+
+				if (coll.GetComponent<InventoryController>() != null)
+				{
+					currentlyInInventory = true;
+				}
 			}
 		}
 	}
@@ -40,6 +45,7 @@ public class HandStateContainer : MonoBehaviour {
 		if (CurrentlyHeldObject != null)
 			return;
 
+		Singletons.InventoryController().TryRemoveItem(obj);
 		obj.transform.SetParent(transform);
 		obj.gameObject.SetActive(true);
 		CurrentlyHeldObject = obj;
@@ -69,10 +75,5 @@ public class HandStateContainer : MonoBehaviour {
 		{
 			CurrentlyHeldObject.GetComponent<WandController>().ExecuteSpell(action);
 		}
-	}
-
-	public void SetInInventory(bool inInventory)
-	{
-		currentlyInInventory = inInventory;
 	}
 }

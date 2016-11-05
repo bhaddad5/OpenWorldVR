@@ -24,12 +24,21 @@ public class InventoryController : MonoBehaviour {
 		obj.gameObject.transform.SetParent(transform);
 		inventory.Add(obj);
 		obj.GetComponent<BoxCollider>().enabled = true;
+
+		GetComponent<SatchelViewController>().DisplaySatchelContents(inventory);
 	}
 
 	public void TryGrabItem(HoldableObject obj)
 	{
 		if (currentHands.Count != 0)
 			currentHands[0].PutItemInHand(obj);
+	}
+
+	public void TryRemoveItem(HoldableObject holdableObject)
+	{
+		if(inventory.Contains(holdableObject))
+			inventory.Remove(holdableObject);
+		GetComponent<SatchelViewController>().DisplaySatchelContents(inventory);
 	}
 
 	public void SummonItemType(SummonableItems itemType)
@@ -40,7 +49,7 @@ public class InventoryController : MonoBehaviour {
 			if (holdableObject.itemType == itemType)
 			{
 				TryGrabItem(holdableObject);
-				inventory.Remove(holdableObject);
+				TryRemoveItem(holdableObject);
 				return;
 			}
 		}
@@ -52,9 +61,13 @@ public class InventoryController : MonoBehaviour {
 		HandStateContainer stateContainer = other.gameObject.GetComponent<HandStateContainer>();
 		if (stateContainer != null)
 		{
+			if (currentHands.Count == 0)
+			{
+				GetComponent<SatchelViewController>().DisplaySatchelContents(inventory);
+				GetComponent<BoxCollider>().size = new Vector3(1.5f, GetComponent<BoxCollider>().size.y, GetComponent<BoxCollider>().size.z);
+			}
 			currentHands.Remove(stateContainer);
 			currentHands.Insert(0, stateContainer);
-			stateContainer.SetInInventory(true);
 		}
 	}
 
@@ -63,8 +76,13 @@ public class InventoryController : MonoBehaviour {
 		HandStateContainer stateContainer = other.gameObject.GetComponent<HandStateContainer>();
 		if (stateContainer != null)
 		{
+			if (currentHands.Count == 1)
+			{
+				GetComponent<SatchelViewController>().HideSatchelContents(inventory);
+				GetComponent<BoxCollider>().size = new Vector3(.7f, GetComponent<BoxCollider>().size.y, GetComponent<BoxCollider>().size.z);
+			}
+
 			currentHands.Remove(stateContainer);
-			stateContainer.SetInInventory(false);
 		}
 	}
 }

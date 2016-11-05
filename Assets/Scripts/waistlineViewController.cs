@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class waistlineViewController : MonoBehaviour {
+public class WaistlineViewController : MonoBehaviour {
 
 	private Vector3 waistlineOffset = new Vector3(0f, -0.9f, -0.1f);
 	private float angleJumpDiff = 90f;

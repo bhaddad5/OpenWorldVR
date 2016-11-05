@@ -37,6 +37,10 @@ public class DamageHandler : MonoBehaviour
 
 		HP -= damage;
 		if (HP <= 0)
+		{
+			if(GetComponent<LootDropper>()!= null)
+				GetComponent<LootDropper>().DropLoot();
 			Destroy(gameObject);
+		}
 	}
 }

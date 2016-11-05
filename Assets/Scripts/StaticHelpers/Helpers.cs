@@ -36,4 +36,9 @@ public static class Helpers {
 		}
 		return result;
 	}
+
+	public static Vector3 GetRandomPosInBounds(float maxX, float maxY, float maxZ)
+	{
+		return new Vector3(Random.Range(-maxX, maxX), Random.Range(-maxY, maxY), Random.Range(-maxZ, maxZ));
+	}
 }
