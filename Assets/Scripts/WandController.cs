@@ -18,7 +18,7 @@ public class WandController : MonoBehaviour
 	{
 		GameObject newFireball = Instantiate(fireball);
 		newFireball.transform.position = transform.parent.position + transform.parent.forward;
-		newFireball.GetComponent<FireballController>().SetMoveDir(transform.parent.forward);
+		newFireball.GetComponent<FireballController>().SetControllingStaff(this.transform);
 	}
 
 	private void ExecuteSpellShield()

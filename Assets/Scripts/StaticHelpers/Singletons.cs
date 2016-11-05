@@ -11,6 +11,7 @@ public static class Singletons
 	private static HandInputController leftHand;
 	private static HandInputController rightHand;
 	private static InventoryController inventoryController;
+	private static PlayerStatsContainer playerStatsContainer;
 
 	public static GlobalPrefabs GlobalPrefabs()
 	{
@@ -66,5 +67,12 @@ public static class Singletons
 		if (inventoryController == null)
 			inventoryController = CameraRig().FindChild("satchel").GetComponent<InventoryController>();
 		return inventoryController;
+	}
+
+	public static PlayerStatsContainer PlayerStatsContainer()
+	{
+		if (playerStatsContainer == null)
+			playerStatsContainer = GameObject.Find("PlayerStatsContainer").GetComponent<PlayerStatsContainer>();
+		return playerStatsContainer;
 	}
 }

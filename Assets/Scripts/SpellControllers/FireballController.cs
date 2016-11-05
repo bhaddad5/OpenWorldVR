@@ -3,10 +3,10 @@ using System.Collections;
 
 public class FireballController : MonoBehaviour
 {
-	private Vector3 movementDirection;
 	private float movementSpeed = 0.3f;
 	private float createdTime;
 	private float lifespan = 10f;
+	private Transform controllingStaff;
 
 	// Use this for initialization
 	void Start ()
@@ -20,11 +20,11 @@ public class FireballController : MonoBehaviour
 		if(createdTime + lifespan <= Time.time)
 			Destroy(this);
 
-		transform.position = transform.position + movementDirection.normalized*movementSpeed;
+		transform.position = Vector3.MoveTowards(transform.position, controllingStaff.transform.position + controllingStaff.transform.forward*1000, movementSpeed);
 	}
 
-	public void SetMoveDir(Vector3 dir)
+	public void SetControllingStaff(Transform staff)
 	{
-		movementDirection = dir;
+		controllingStaff = staff;
 	}
 }
