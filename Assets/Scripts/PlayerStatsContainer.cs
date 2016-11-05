@@ -30,4 +30,10 @@ public class PlayerStatsContainer : MonoBehaviour
 	{
 		return mana >= requiredMana;
 	}
+
+	public void AddStats(StatsLoot loot)
+	{
+		AddGold(loot.gold);
+		AddMana(loot.mana);
+	}
 }

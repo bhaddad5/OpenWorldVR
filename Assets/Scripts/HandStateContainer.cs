@@ -14,6 +14,22 @@ public class HandStateContainer : MonoBehaviour {
 		handTracker = transform.FindChild("HandTracker").gameObject;
 	}
 
+	void Update()
+	{
+		if (triggerDown)
+		{
+			Collider[] currentColliders = Physics.OverlapSphere(handTracker.transform.position, .1f);
+			foreach (Collider coll in currentColliders)
+			{
+				if (coll.GetComponent<StatsLoot>() != null)
+				{
+					Singletons.PlayerStatsContainer().AddStats(coll.GetComponent<StatsLoot>());
+					Destroy(coll.gameObject);
+				}
+			}
+		}
+	}
+
 	public void TryAddItemToInventory()
 	{
 		if (currentlyInInventory && CurrentlyHeldObject != null)
