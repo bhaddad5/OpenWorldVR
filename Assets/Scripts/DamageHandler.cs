@@ -23,6 +23,18 @@ public class DamageHandler : MonoBehaviour
 
 	public void TakeDamage(int damage)
 	{
+		if (gameObject.name == "[CameraRig]")
+		{
+			HP -= damage;
+			if (damage > 0)
+			{
+				SteamVR_Controller.Input(0).TriggerHapticPulse(2000);
+				SteamVR_Controller.Input(1).TriggerHapticPulse(2000);
+			}
+			
+			return;
+		}
+
 		GameObject damageText = Instantiate(Singletons.GlobalPrefabs().DamageText);
 		damageText.transform.position = transform.position + new Vector3(0, textYOffset, 0);
 		damageText.transform.LookAt(Camera.main.transform.position);

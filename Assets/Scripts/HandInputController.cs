@@ -57,6 +57,7 @@ public class HandInputController : MonoBehaviour
 	{
 		RaycastHit hit;
 		Physics.Raycast(new Ray(transform.position, transform.forward), out hit, 100f);
-		Singletons.PlayerMovementController().UpdateMovePoint(hit);
+		if(hit.transform != null)
+			Singletons.PlayerMovementController().UpdateMovePoint(hit);
 	}
 }

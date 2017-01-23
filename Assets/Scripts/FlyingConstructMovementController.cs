@@ -43,7 +43,6 @@ public class FlyingConstructMovementController : MonoBehaviour
 			{
 				if (info.collider.name == "PlayerBody")
 				{
-					Debug.Log("found move pos");
 					return endPos;
 				}
 			}
@@ -51,7 +50,6 @@ public class FlyingConstructMovementController : MonoBehaviour
 		if(currSanity <= maxSanity)
 			return FindMovePoint(currSanity + 1, maxSanity);
 
-		Debug.Log("FAILED to find move pos");
 		return transform.position;
 	}
 
@@ -67,7 +65,6 @@ public class FlyingConstructMovementController : MonoBehaviour
 			transform.position = Vector3.Lerp(startPos, targetPos, percentTraveled);
 			yield return null;
 		}
-		Debug.Log("end move");
 		moving = false;
 		StartCoroutine(FireAtPlayer());
 	}
@@ -90,7 +87,6 @@ public class FlyingConstructMovementController : MonoBehaviour
 			yield return null;
 		}
 
-		Debug.Log("end fire");
 		firing = false;
 	}
 }
