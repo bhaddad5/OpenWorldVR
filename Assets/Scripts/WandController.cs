@@ -6,6 +6,8 @@ public class WandController : MonoBehaviour
 	public GameObject fireball;
 	public GameObject spellShield;
 
+	public GameObject spellStartPoint;
+
 	public void ExecuteSpell(VoiceDetector.SpellActions action)
 	{
 		if (action == VoiceDetector.SpellActions.Fireball)
@@ -17,7 +19,7 @@ public class WandController : MonoBehaviour
 	private void ExecuteFireball()
 	{
 		GameObject newFireball = Instantiate(fireball);
-		newFireball.transform.position = transform.parent.position + transform.parent.forward;
+		newFireball.transform.position = spellStartPoint.transform.position + spellStartPoint.transform.forward;
 		newFireball.GetComponent<FireballController>().SetControllingStaff(this.transform);
 	}
 

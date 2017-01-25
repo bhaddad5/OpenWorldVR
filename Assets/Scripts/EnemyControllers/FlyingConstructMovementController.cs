@@ -7,16 +7,17 @@ public class FlyingConstructMovementController : MonoBehaviour
 {
 	public GameObject spellPrefab;
 
-	private float fireTime = 2f;
+	protected float fireTime = 3f;
 	private float moveTime = 2f;
 	private float speedOfMove = 4f;
 	private float maxDistFromPlayer = 20f;
 
-	private bool moving = false;
-	private bool firing = false;
+	protected bool moving = false;
+	protected bool firing = false;
 
 	// Update is called once per frame
-	void Update () {
+	void Update()
+	{
 		transform.LookAt(Camera.main.transform);
 
 		if (!moving && !firing)
@@ -24,7 +25,7 @@ public class FlyingConstructMovementController : MonoBehaviour
 			Vector3 pointToMoveTo = FindMovePoint(0, 100);
 			StartCoroutine(MoveToPoint(pointToMoveTo));
 		}
-		
+
 	}
 
 	private Vector3 FindMovePoint(int currSanity, int maxSanity)
@@ -33,9 +34,9 @@ public class FlyingConstructMovementController : MonoBehaviour
 		testDir.Normalize();
 
 		Ray moveRay = new Ray(transform.position, testDir);
-		if (!Physics.Raycast(moveRay, moveTime*speedOfMove))
+		if (!Physics.Raycast(moveRay, moveTime * speedOfMove))
 		{
-			Vector3 endPos = transform.position + testDir*(moveTime*speedOfMove);
+			Vector3 endPos = transform.position + testDir * (moveTime * speedOfMove);
 			float endDistToPlayer = Vector3.Magnitude(Camera.main.transform.position - endPos);
 			Ray playerHitRay = new Ray(endPos, Camera.main.transform.position - endPos);
 			RaycastHit info;
@@ -47,7 +48,7 @@ public class FlyingConstructMovementController : MonoBehaviour
 				}
 			}
 		}
-		if(currSanity <= maxSanity)
+		if (currSanity <= maxSanity)
 			return FindMovePoint(currSanity + 1, maxSanity);
 
 		Debug.Log("failed to find move pos");
@@ -59,31 +60,31 @@ public class FlyingConstructMovementController : MonoBehaviour
 		moving = true;
 		Vector3 startPos = transform.position;
 		float startMoveTime = Time.time;
-		
+
 		while (startMoveTime + moveTime > Time.time)
 		{
-			float percentTraveled = (Time.time - startMoveTime)/ moveTime;
+			float percentTraveled = (Time.time - startMoveTime) / moveTime;
 			transform.position = Vector3.Lerp(startPos, targetPos, percentTraveled);
 			yield return null;
 		}
 		moving = false;
-		StartCoroutine(FireAtPlayer());
+		StartCoroutine(AttackPlayer());
 	}
 
-	private IEnumerator FireAtPlayer()
+	private IEnumerator AttackPlayer()
 	{
 		float startFireTime = Time.time;
 		firing = true;
-		bool spellFired = false;
+		bool playerAttacked = false;
 
 		while (startFireTime + fireTime > Time.time)
 		{
-			float percentFired = (Time.time - startFireTime)/moveTime;
-			if (!spellFired && percentFired >= 0.75f)
+			float percentFired = (Time.time - startFireTime) / fireTime;
+			if (!playerAttacked && percentFired >= 0.75f)
 			{
 				GameObject newSpell = Instantiate(spellPrefab, transform.position + transform.forward.normalized, transform.rotation);
 				newSpell.GetComponent<FireballController>().SetMoveSpeed(0.1f);
-				spellFired = true;
+				playerAttacked = true;
 			}
 			yield return null;
 		}
