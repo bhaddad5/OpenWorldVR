@@ -3,7 +3,7 @@ using System.Collections;
 
 public class FireballController : MonoBehaviour
 {
-	private float movementSpeed = 0.2f;
+	private float movementSpeed = 0.4f;
 	private float createdTime;
 	private float lifespan = 5f;
 	private Transform controllingStaff;

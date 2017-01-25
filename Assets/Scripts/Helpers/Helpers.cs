@@ -41,4 +41,14 @@ public static class Helpers {
 	{
 		return new Vector3(Random.Range(-maxX, maxX), Random.Range(-maxY, maxY), Random.Range(-maxZ, maxZ));
 	}
+
+	public static List<Transform> GetAllChildren(this Transform trans)
+	{
+		List<Transform> allChildren = new List<Transform>();
+		for (int i = 0; i < trans.childCount; i++)
+		{
+			allChildren.Add(trans.GetChild(i));
+		}
+		return allChildren;
+	}
 }

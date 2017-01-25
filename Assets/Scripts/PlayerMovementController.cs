@@ -48,7 +48,6 @@ public class PlayerMovementController : MonoBehaviour
 	public void UpdateMovePoint(RaycastHit hit)
 	{
 		currentIntendedMovePoint = hit;
-		Debug.Log(hit.transform.gameObject.name);
 	}
 
 	public void ExecuteMove()

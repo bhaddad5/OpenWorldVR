@@ -34,7 +34,6 @@ public class VoiceDetector : MonoBehaviour
 		// if the keyword recognized is in our dictionary, call that Action.
 		if (keywords.TryGetValue(args.text, out keywordAction))
 		{
-			Debug.Log(args.text);
 			keywordAction.Invoke();
 		}
 	}
@@ -49,7 +48,6 @@ public class VoiceDetector : MonoBehaviour
 
 	private void ExecuteSpellAction(SpellActions action)
 	{
-		Debug.Log(action.ToString());
 		Singletons.SpellExecutor().ExecuteSpell(action);
 	}
 

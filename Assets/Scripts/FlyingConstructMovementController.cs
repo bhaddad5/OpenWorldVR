@@ -21,7 +21,7 @@ public class FlyingConstructMovementController : MonoBehaviour
 
 		if (!moving && !firing)
 		{
-			Vector3 pointToMoveTo = FindMovePoint(0, 50);
+			Vector3 pointToMoveTo = FindMovePoint(0, 100);
 			StartCoroutine(MoveToPoint(pointToMoveTo));
 		}
 		
@@ -50,6 +50,7 @@ public class FlyingConstructMovementController : MonoBehaviour
 		if(currSanity <= maxSanity)
 			return FindMovePoint(currSanity + 1, maxSanity);
 
+		Debug.Log("failed to find move pos");
 		return transform.position;
 	}
 
