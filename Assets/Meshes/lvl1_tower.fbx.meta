@@ -1,0 +1,137 @@
+fileFormatVersion: 2
+guid: 5cfa78f606d0f7b4cb70ab92a6c5c7c7
+timeCreated: 1485328130
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: rubble0
+    100004: rubble0_walkable
+    100006: rubble1
+    100008: rubble1_walkable
+    100010: rubble2
+    100012: rubble2_walkable
+    100014: TopTowerDrumm
+    100016: TopTowerWalkable
+    100018: TopTowerWalkway
+    100020: TopTowerWalkwayWalkable
+    100022: TowerFloor0
+    100024: TowerWalls0
+    400000: //RootNode
+    400002: rubble0
+    400004: rubble0_walkable
+    400006: rubble1
+    400008: rubble1_walkable
+    400010: rubble2
+    400012: rubble2_walkable
+    400014: TopTowerDrumm
+    400016: TopTowerWalkable
+    400018: TopTowerWalkway
+    400020: TopTowerWalkwayWalkable
+    400022: TowerFloor0
+    400024: TowerWalls0
+    2300000: rubble0
+    2300002: rubble0_walkable
+    2300004: rubble1
+    2300006: rubble1_walkable
+    2300008: rubble2
+    2300010: rubble2_walkable
+    2300012: TopTowerDrumm
+    2300014: TopTowerWalkable
+    2300016: TopTowerWalkway
+    2300018: TopTowerWalkwayWalkable
+    2300020: TowerFloor0
+    2300022: TowerWalls0
+    3300000: rubble0
+    3300002: rubble0_walkable
+    3300004: rubble1
+    3300006: rubble1_walkable
+    3300008: rubble2
+    3300010: rubble2_walkable
+    3300012: TopTowerDrumm
+    3300014: TopTowerWalkable
+    3300016: TopTowerWalkway
+    3300018: TopTowerWalkwayWalkable
+    3300020: TowerFloor0
+    3300022: TowerWalls0
+    4300000: TowerFloor0
+    4300002: TowerWalls0
+    4300004: TopTowerWalkway
+    4300006: TopTowerWalkwayWalkable
+    4300008: TopTowerDrumm
+    4300010: TopTowerWalkable
+    4300012: rubble2
+    4300014: rubble2_walkable
+    4300016: rubble1
+    4300018: rubble1_walkable
+    4300020: rubble0
+    4300022: rubble0_walkable
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

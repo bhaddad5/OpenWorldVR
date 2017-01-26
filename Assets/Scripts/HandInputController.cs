@@ -53,6 +53,7 @@ public class HandInputController : MonoBehaviour
 		}
 	}
 
+	//TODO: FIX!!!
 	private void UpdateCurrentMovePoint()
 	{
 		RaycastHit hit;
