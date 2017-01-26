@@ -20,6 +20,7 @@ public class EnvironmentSetupHelper : MonoBehaviour
 		{
 			objToSetUp.material = environmentMaterial;
 			objToSetUp.gameObject.AddComponent<MeshCollider>();
+			objToSetUp.gameObject.AddComponent<DamageReciever>();
 
 			if (objToSetUp.name.ToLowerInvariant().Contains("walkable"))
 			{
