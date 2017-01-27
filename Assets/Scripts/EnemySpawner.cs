@@ -3,20 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour {
+public class EnemySpawner : MonoBehaviour
+{
+	public Transform colliderChildren;
+	public Transform spawnChildren;
 
 	void Start()
 	{
-		foreach (Transform child in transform.GetAllChildren())
+		foreach (Transform child in spawnChildren.GetAllChildren())
 			child.gameObject.SetActive(false);
 	}
 
-	void OnTriggerEnter(Collider collider)
+	public void TriggerSpawn()
 	{
-		if(collider.GetComponent<PlayerMovementController>() != null)
-		{
-			foreach (Transform child in transform.GetAllChildren())
+		foreach (Transform child in spawnChildren.GetAllChildren())
 			child.gameObject.SetActive(true);
-		}
+		foreach (Transform child in colliderChildren.GetAllChildren())
+			Destroy(child.gameObject);
 	}
 }

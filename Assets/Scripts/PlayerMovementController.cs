@@ -8,7 +8,7 @@ public class PlayerMovementController : MonoBehaviour
 
 	private bool projectingMovement = false;
 	private float moveSpeed = 0.2f;
-	private float maxMoveDist = 20.0f;
+	private float maxMoveDist = 4.0f;
 	private float baseMoveDist = 0f;
 	private float distCanMove = 0f;
 	private RaycastHit currentIntendedMovePoint;
@@ -54,9 +54,29 @@ public class PlayerMovementController : MonoBehaviour
 	{
 		if (lookingAtValidPoint)
 		{
+			Bounds oldBounds = Singletons.PlayerMovementController().GetComponent<BoxCollider>().bounds;
+
 			Vector3 cameraOffset = new Vector3(Camera.main.transform.localPosition.x, 0, Camera.main.transform.localPosition.z);
 			Singletons.CameraRig().transform.position = currentActualMovePoint - cameraOffset;
+
+			Bounds newBounds = Singletons.PlayerMovementController().GetComponent<BoxCollider>().bounds;
+			newBounds.Encapsulate(oldBounds);
+			GameObject g = new GameObject("PlayerBody");
+			g.transform.position = newBounds.center;
+			g.AddComponent<Rigidbody>();
+			g.GetComponent<Rigidbody>().useGravity = false;
+			g.GetComponent<Rigidbody>().isKinematic = true;
+			g.AddComponent<BoxCollider>();
+			g.GetComponent<BoxCollider>().size = newBounds.extents*2;
+
+			StartCoroutine(DeleteTempBox(g));
 		}
+	}
+
+	public IEnumerator DeleteTempBox(GameObject g)
+	{
+		yield return null;
+		Destroy(g);
 	}
 
 	public void EndMovement()
