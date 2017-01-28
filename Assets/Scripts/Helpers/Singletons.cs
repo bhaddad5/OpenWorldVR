@@ -5,13 +5,11 @@ public static class Singletons
 {
 	private static GlobalPrefabs globalPrefabs;
 	private static Transform cameraRig;
-	private static PlayerMovementController playerMovementController;
+	private static GameObject playerBody;
 	private static VoiceDetector voiceDetector;
 	private static SpellExecutor spellExecutor;
 	private static HandInputController leftHand;
 	private static HandInputController rightHand;
-	private static InventoryController inventoryController;
-	private static PlayerStatsContainer playerStatsContainer;
 
 	public static GlobalPrefabs GlobalPrefabs()
 	{
@@ -27,11 +25,11 @@ public static class Singletons
 		return cameraRig;
 	}
 
-	public static PlayerMovementController PlayerMovementController()
+	public static GameObject PlayerBody()
 	{
-		if (playerMovementController == null)
-			playerMovementController = CameraRig().FindChild("Camera (eye)").FindChild("PlayerBody").GetComponent<PlayerMovementController>();
-		return playerMovementController;
+		if (playerBody == null)
+			playerBody = CameraRig().FindChild("Camera (eye)").FindChild("PlayerBody").gameObject;
+		return playerBody;
 	}
 
 	public static VoiceDetector VoiceDetector()
@@ -60,19 +58,5 @@ public static class Singletons
 		if (rightHand == null)
 			rightHand = CameraRig().FindChild("Controller (right)").GetComponent<HandInputController>();
 		return rightHand;
-	}
-
-	public static InventoryController InventoryController()
-	{
-		if (inventoryController == null)
-			inventoryController = CameraRig().FindChild("Inventory").FindChild("satchel").GetComponent<InventoryController>();
-		return inventoryController;
-	}
-
-	public static PlayerStatsContainer PlayerStatsContainer()
-	{
-		if (playerStatsContainer == null)
-			playerStatsContainer = GameObject.Find("PlayerStatsContainer").GetComponent<PlayerStatsContainer>();
-		return playerStatsContainer;
 	}
 }

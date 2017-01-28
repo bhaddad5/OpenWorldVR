@@ -15,13 +15,10 @@ public class VoiceDetector : MonoBehaviour
 	Dictionary<string, System.Action> keywords = new Dictionary<string, System.Action>();
 
 	// Use this for initialization
-	void Start ()
+	void Start()
 	{
-		AddInventoryKeyword(InventoryController.SummonableItems.staff, new[] {"staff"});
-		AddInventoryKeyword(InventoryController.SummonableItems.sword, new []{"sword", "blade"});
-
 		AddSpellKeyword(SpellActions.Fireball, new[] {"ignus"});
-		AddSpellKeyword(SpellActions.SpellShield, new []{"haedrus"});
+		AddSpellKeyword(SpellActions.SpellShield, new[] {"haedrus"});
 
 		keywordRecognizer = new KeywordRecognizer(keywords.Keys.ToArray());
 		keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
@@ -42,26 +39,12 @@ public class VoiceDetector : MonoBehaviour
 	{
 		foreach (string word in actionKeyWords)
 		{
-			keywords.Add(word, ()=>ExecuteSpellAction(action));
+			keywords.Add(word, () => ExecuteSpellAction(action));
 		}
 	}
 
 	private void ExecuteSpellAction(SpellActions action)
 	{
 		Singletons.SpellExecutor().ExecuteSpell(action);
-	}
-
-	private void AddInventoryKeyword(InventoryController.SummonableItems item, string[] actionKeyWords)
-	{
-		foreach (string word in actionKeyWords)
-		{
-			keywords.Add(word, () => ExecuteInventoryAction(item));
-		}
-	}
-
-	private void ExecuteInventoryAction(InventoryController.SummonableItems item)
-	{
-		Debug.Log("Summoning: " + item);
-		Singletons.InventoryController().SummonItemType(item);
 	}
 }

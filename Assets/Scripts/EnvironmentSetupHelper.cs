@@ -21,8 +21,11 @@ public class EnvironmentSetupHelper : MonoBehaviour
 			objToSetUp.material = environmentMaterial;
 			objToSetUp.gameObject.AddComponent<MeshCollider>();
 			objToSetUp.gameObject.AddComponent<DamageReciever>();
+			objToSetUp.gameObject.AddComponent<Rigidbody>();
+			objToSetUp.gameObject.GetComponent<Rigidbody>().useGravity = false;
+			objToSetUp.gameObject.GetComponent<Rigidbody>().isKinematic = true;
 
-			if (objToSetUp.name.ToLowerInvariant().Contains("walkable"))
+			if (objToSetUp.name.ToLowerInvariant().Contains("_w"))
 			{
 				objToSetUp.gameObject.AddComponent<WalkingSurface>();
 				objToSetUp.GetComponent<MeshRenderer>().enabled = false;

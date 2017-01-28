@@ -1,64 +1,69 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Valve.VR;
 
 public class HandInputController : MonoBehaviour
 {
 	private SteamVR_Controller.Device input;
-	private bool currentlyMovingPlayer = false;
-	
+	private List<IHandInputReciever> recievers = new List<IHandInputReciever>();
+	private bool triggerDown = false;
+	private bool touchPadDown = false;
+
+	void Start()
+	{
+		recievers = GetComponentsInChildren<IHandInputReciever>().ToList();
+	}
+
 	// Update is called once per frame
 	void FixedUpdate ()
 	{
 		input = SteamVR_Controller.Input((int)GetComponentInParent<SteamVR_TrackedObject>().index);
 
 		GetClickInput();
-		GetMoveInput();
+		GetTouchpadInput();
 	}
 
 	private void GetClickInput()
 	{
 		if (input.GetPressDown(EVRButtonId.k_EButton_SteamVR_Trigger))
 		{
-			GetComponent<HandStateContainer>().SetTriggerDown(true);
-
-			GetComponent<HandStateContainer>().TryAddItemToInventory();
+			triggerDown = true;
+			foreach (var reciever in recievers)
+				reciever.TriggerDown();
 		}
 		if (input.GetPressUp(EVRButtonId.k_EButton_SteamVR_Trigger))
 		{
-			GetComponent<HandStateContainer>().SetTriggerDown(false);
+			triggerDown = false;
+			foreach (var reciever in recievers)
+				reciever.TriggerUp();
+		}
+		if (triggerDown)
+		{
+			foreach (var reciever in recievers)
+				reciever.TriggerHold();
 		}
 	}
 
-	private void GetMoveInput()
+	private void GetTouchpadInput()
 	{
 		if (input.GetPressDown(EVRButtonId.k_EButton_SteamVR_Touchpad))
 		{
-			currentlyMovingPlayer = Singletons.PlayerMovementController().TryToBeginMove();
+			touchPadDown = true;
+			foreach (var reciever in recievers)
+				reciever.TouchPadDown();
 		}
-
-		if (currentlyMovingPlayer)
-		{
-			UpdateCurrentMovePoint();
-		}
-
 		if (input.GetPressUp(EVRButtonId.k_EButton_SteamVR_Touchpad))
 		{
-			if (currentlyMovingPlayer)
-			{
-				Singletons.PlayerMovementController().ExecuteMove();
-				currentlyMovingPlayer = false;
-			}
-			Singletons.PlayerMovementController().EndMovement();
+			touchPadDown = false;
+			foreach (var reciever in recievers)
+				reciever.TouchPadUp();
 		}
-	}
-
-	//TODO: FIX!!!
-	private void UpdateCurrentMovePoint()
-	{
-		RaycastHit hit;
-		Physics.Raycast(new Ray(transform.position, transform.forward), out hit, 100f);
-		if(hit.transform != null)
-			Singletons.PlayerMovementController().UpdateMovePoint(hit);
+		if (touchPadDown)
+		{
+			foreach (var reciever in recievers)
+				reciever.TouchPadHold();
+		}
 	}
 }
