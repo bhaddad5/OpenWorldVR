@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpawnCollisionDetector : MonoBehaviour {
+public class EventTriggerCollisionDetector : MonoBehaviour {
 
 	void OnTriggerEnter(Collider collider)
 	{
 		if (collider.name == "PlayerBody")
 		{
-			transform.parent.parent.GetComponent<EnemySpawner>().TriggerSpawn();
+			transform.parent.parent.GetComponent<EventTrigger>().TriggerExecute();
 		}
 	}
 }

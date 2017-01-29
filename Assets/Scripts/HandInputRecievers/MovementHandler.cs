@@ -7,7 +7,7 @@ public class MovementHandler : MonoBehaviour, IHandInputReciever
 {
 	public GameObject moveIndicatorPrefab;
 
-	private float moveMetersPerSec = 5f;
+	private float moveMetersPerSec = 15f;
 	private float maxMoveDist = 8.0f;
 
 	private GameObject spawnedMoveIndicator;
@@ -55,7 +55,7 @@ public class MovementHandler : MonoBehaviour, IHandInputReciever
 
 	public void TouchPadUp()
 	{
-		if (distMovedSoFar >= currDistToMove)
+		if (spawnedMoveIndicator.activeInHierarchy && distMovedSoFar >= currDistToMove)
 		{
 			ExecuteMove();
 		}
