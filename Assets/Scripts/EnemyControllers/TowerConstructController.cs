@@ -7,6 +7,7 @@ public class TowerConstructController : MonoBehaviour
 	public GameObject spellPrefab;
 	public GameObject pieceToMove;
 	private Transform spellStartTrans;
+	private float distFromPlayerToAwake = 25.0f;
 
 	protected bool firing = false;
 	protected float fireTime = 4f;
@@ -17,12 +18,17 @@ public class TowerConstructController : MonoBehaviour
 	}
 
 	// Update is called once per frame
-	void Update () {
-		pieceToMove.transform.LookAt(Camera.main.transform.position);
-
-		if (!firing)
+	void Update ()
+	{
+		float distFromPlayer = Vector3.Magnitude(transform.position - Camera.main.transform.position);
+		if (distFromPlayer <= distFromPlayerToAwake)
 		{
-			StartCoroutine(AttackPlayer());
+			pieceToMove.transform.LookAt(Camera.main.transform.position);
+
+			if (!firing)
+			{
+				StartCoroutine(AttackPlayer());
+			}
 		}
 	}
 

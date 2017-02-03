@@ -7,7 +7,8 @@ public class SpellExecutor : MonoBehaviour
 
 	public void ExecuteSpell(VoiceDetector.SpellActions action)
 	{
-		if(action == VoiceDetector.SpellActions.Fireball || action == VoiceDetector.SpellActions.SpellShield)
+		if(action == VoiceDetector.SpellActions.Fireball || action == VoiceDetector.SpellActions.SpellShield
+			|| action == VoiceDetector.SpellActions.Laser)
 			wand.ExecuteSpell(action);
 	}
 }

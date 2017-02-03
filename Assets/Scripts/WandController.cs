@@ -4,6 +4,7 @@ using System.Collections;
 public class WandController : MonoBehaviour
 {
 	public GameObject fireball;
+	public GameObject laser;
 	public GameObject spellShield;
 
 	public GameObject spellStartPoint;
@@ -12,6 +13,8 @@ public class WandController : MonoBehaviour
 	{
 		if (action == VoiceDetector.SpellActions.Fireball)
 			ExecuteFireball();
+		if (action == VoiceDetector.SpellActions.Laser)
+			ExecuteLaser();
 		if (action == VoiceDetector.SpellActions.SpellShield)
 			ExecuteSpellShield();
 	}
@@ -21,6 +24,14 @@ public class WandController : MonoBehaviour
 		GameObject newFireball = Instantiate(fireball);
 		newFireball.transform.position = spellStartPoint.transform.position + spellStartPoint.transform.forward;
 		newFireball.GetComponent<FireballController>().SetControllingStaff(this.transform);
+	}
+
+	private void ExecuteLaser()
+	{
+		GameObject newLaser = Instantiate(laser);
+		newLaser.transform.position = spellStartPoint.transform.position;
+		newLaser.transform.rotation = spellStartPoint.transform.rotation;
+		newLaser.GetComponent<LaserController>().SetControllingStaff(this.transform);
 	}
 
 	private void ExecuteSpellShield()

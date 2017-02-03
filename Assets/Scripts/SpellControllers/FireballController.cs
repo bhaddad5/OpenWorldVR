@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FireballController : MonoBehaviour
+public class FireballController : MonoBehaviour, IDamageController
 {
 	private float movementSpeed = 0.4f;
 	private float createdTime;
@@ -11,6 +11,7 @@ public class FireballController : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+		GetComponent<DamageDealer>().SetDamageController(this);
 		createdTime = Time.time;
 	}
 	
@@ -37,5 +38,10 @@ public class FireballController : MonoBehaviour
 	public void SetMoveSpeed(float newSpeed)
 	{
 		movementSpeed = newSpeed;
+	}
+
+	public void HandleDamageDealt()
+	{
+		Destroy(gameObject);
 	}
 }

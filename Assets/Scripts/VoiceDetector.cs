@@ -8,6 +8,7 @@ public class VoiceDetector : MonoBehaviour
 	public enum SpellActions
 	{
 		Fireball,
+		Laser,
 		SpellShield
 	}
 
@@ -18,6 +19,7 @@ public class VoiceDetector : MonoBehaviour
 	void Start()
 	{
 		AddSpellKeyword(SpellActions.Fireball, new[] {"ignus"});
+		AddSpellKeyword(SpellActions.Laser, new[] { "traibis" });
 		AddSpellKeyword(SpellActions.SpellShield, new[] {"haedrus"});
 
 		keywordRecognizer = new KeywordRecognizer(keywords.Keys.ToArray());

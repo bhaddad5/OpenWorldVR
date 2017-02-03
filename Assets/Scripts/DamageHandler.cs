@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class DamageHandler : MonoBehaviour
 {
-	public int HP;
+	public float HP;
 
 	private float textYOffset = 1.0f;
 
@@ -21,7 +21,7 @@ public class DamageHandler : MonoBehaviour
 		textYOffset = combinedBounds.max.y - transform.position.y;
 	}
 
-	public void TakeDamage(int damage)
+	public void TakeDamage(float damage)
 	{
 		if (gameObject.name == "[CameraRig]")
 		{
@@ -40,7 +40,7 @@ public class DamageHandler : MonoBehaviour
 		damageText.transform.LookAt(Camera.main.transform.position);
 		Text text = damageText.transform.GetChild(0).GetComponent<Text>();
 
-		if (damage == 0)
+		if (damage.Equals(0))
 		{
 			text.text = "BLOCKED";
 		}

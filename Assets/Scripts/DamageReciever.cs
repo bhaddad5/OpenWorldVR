@@ -13,9 +13,9 @@ public class DamageReciever : MonoBehaviour
 		damageHandler = gameObject.GetComponentInAllParents<DamageHandler>();
 	}
 
-	public void RecieveHit(int damage)
+	public void RecieveHit(float damage)
 	{
 		if(damageHandler != null)
-			damageHandler.TakeDamage(Convert.ToInt32(((float) damage)*damageMultiplier));
+			damageHandler.TakeDamage(damage*damageMultiplier);
 	}
 }
